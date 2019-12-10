@@ -1,0 +1,181 @@
+﻿@model DepartmentStoreManagementSystemWebApp.Models.AddProduct
+@{
+    ViewBag.Title = "UpdateProduct";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        input.btn-block[type="submit"] {
+            width: 50%;
+            margin-left: 353px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container clearfix">
+        <h1 class="text-center ">Update Product</h1>
+        <form method="post">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">code</label>
+                <div class="col-sm-10">
+                   
+                    @Html.TextBoxFor(x => x.Code, new { @id = "codeNo", @class = "form-control", placeholder = "code" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    
+                    @Html.TextBoxFor(x => x.Name, new { @id = "asdf", @class = "form-control", placeholder = "name" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Parchase Product</label>
+                <div class="col-sm-10">
+                    
+                    @Html.TextBoxFor(x => x.PurchaseProduct, new { @id = "pProduct", @class = "form-control", placeholder = "Parchase Product" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Sale Product</label>
+                <div class="col-sm-10">
+                  
+                    @Html.TextBoxFor(x => x.SaleProduct, new { @id = "sProduct", @class = "form-control", placeholder = "Sale Product" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Brand</label>
+                <div class="col-sm-10">
+                   
+                    @Html.DropDownListFor(x => x.Brand, new SelectList(ViewBag.list, "Name", "Name"), "Select", new { @id = "barnd", @class = "form-control form-control-md" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Vat</label>
+                <div class="col-sm-10">
+                    
+                    @Html.TextBoxFor(x => x.Vat, new { @id = "vat", @class = "form-control", placeholder = "Vat %" }) 
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Discount</label>
+                <div class="col-sm-10">
+                   
+                    @Html.TextBoxFor(x => x.Discount, new { @id = "discunt", @class = "form-control", placeholder = "Discount %" }) 
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Quantity</label>
+                <div class="col-sm-10">
+                    
+                    @Html.TextBoxFor(x => x.Quantity, new { @id = "quenty", @class = "form-control", placeholder = "Quantity" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Weight</label>
+                <div class="col-sm-10">
+                   
+                    @Html.TextBoxFor(x => x.Weight, new { @id = "weight", @class = "form-control", placeholder = "Weight gm/ml" }) 
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Supplier</label>
+                <div class="col-sm-10">
+                    
+                    @Html.DropDownListFor(x => x.Supplier, new SelectList(ViewBag.list2, "Name", "Name"), "Select", new { @id = "supplier", @class = "form-control form-control-md" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Reciver By</label>
+                <div class="col-sm-10">
+                   
+                    @Html.DropDownListFor(x => x.ReceivedBy, new SelectList(ViewBag.list3, "Name", "Name"), "Select", new { @id = "receiverby", @class = "form-control form-control-md" })
+                </div>
+            </div>
+            
+            <input type="submit" value="Save" class="btn btn-primary btn-block" />
+
+        </form>
+        @if (ViewBag != null)
+        {
+            <h3 class="text-center">@ViewBag.message</h3>
+        }
+    </div>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        $("#codeNo").change(function () {
+            var selectdepartmentId = $("#codeNo").val();
+
+
+            var json = { code: selectdepartmentId };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetAllData", "Product")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(json),
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        $("#asdf").val(value.Name);
+                        $("#pProduct").val(value.PurchaseProduct);
+                        $("#sProduct").val(value.SaleProduct);
+                        $("#barnd").val(value.Brand);
+                        $("#vat").val(value.Vat);
+                        $("#quenty").val(value.Quantity);
+                        $("#discunt").val(value.Discount);
+                        $("#weight").val(value.Weight);
+                        $("#supplier").val(value.Supplier);
+                        $("#receiverby").val(value.ReceivedBy);
+                    });
+                }
+            });
+        });
+    });
+
+    $(function () {
+        $(".datepicker").datepicker(
+            { dateFormate: "yy-mm-dd" });
+    });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

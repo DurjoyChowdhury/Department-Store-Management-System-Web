@@ -1,0 +1,70 @@
+﻿@model DepartmentStoreManagementSystemWebApp.Models.AddProduct
+@{
+    ViewBag.Title = "StockIn";
+    Layout = null;
+}
+
+<h2>Stock In</h2>
+<form method="post">
+    
+    <div>
+        @Html.LabelFor(x => x.Code)
+        @Html.TextBoxFor(x => x.Code , new {@id ="code" })
+    </div>
+    <div>
+        @Html.LabelFor(x => x.Name)
+        @Html.TextBoxFor(x => x.Name, new {@id="name"})
+    </div>
+    <div>
+        @Html.LabelFor(x => x.Weight)
+        @Html.TextBoxFor(x => x.Weight, new {@id="weight"})
+    </div>
+    <div>
+        @Html.LabelFor(x => x.Quantity)
+        @Html.TextBoxFor(x => x.Quantity, new {@id="quantity"})
+    </div>
+    <div>
+        @Html.Label("Stock In")
+        <input type="text" name="stockIn" id="stockIn" />
+    </div>
+    <input type="submit"value="Save"/>
+</form>
+@if (ViewBag != null)
+{
+    <h2 class="text-center">@ViewBag.message</h2>
+}
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        $("#code").change(function () {
+            var selectdepartmentId = $("#code").val();
+
+
+            var json = { codeNo: selectdepartmentId };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetAllProductForStockIn", "Product")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(json),
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        $("#name").val(value.Name);
+                       
+                        $("#quantity").val(value.Quantity);
+                       
+                        $("#weight").val(value.Weight);
+                       
+                    });
+                }
+            });
+        });
+    });
+
+  
+</script>
+

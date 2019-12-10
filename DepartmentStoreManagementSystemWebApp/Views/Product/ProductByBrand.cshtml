@@ -1,0 +1,61 @@
+﻿@using DepartmentStoreManagementSystemWebApp.Models
+@model DepartmentStoreManagementSystemWebApp.Models.AddProduct
+@{
+    ViewBag.Title = "ProductByBrand";
+    Layout = null;
+}
+
+<h2>ProductByBrand</h2>
+<form method="post">
+    <div>
+        @Html.LabelFor(x=>x.Brand)
+        @Html.DropDownListFor(x => x.Brand, new SelectList(ViewBag.brand,"Name", "Name"),"Select")
+    </div>
+    <input type="submit" value="Find"/>
+</form>
+
+@if (ViewBag.products != null)
+{
+    <table border="2">
+        <thead>
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>
+                Code
+            </td>
+            <td>Purchase Product</td><td> Sale Product</td><td>Discount</td><td>Vat</td><td>Quantity</td><td>Supplier</td><td>Receivedby</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach (AddProduct addProduct in ViewBag.products)
+        {
+        <tr>
+            <td>
+                @addProduct.Name
+            </td>
+            <td>
+                @addProduct.Code
+            </td>
+            <td>
+                @addProduct.PurchaseProduct
+            </td>
+            <td>
+                @addProduct.SaleProduct
+            </td>
+            <td>
+                @addProduct.Discount
+            </td>
+            <td>@addProduct.Vat</td>
+            <td>@addProduct.Quantity</td>
+            <td>@addProduct.Supplier</td>
+            <td>@addProduct.ReceivedBy</td>
+        </tr>
+        }
+
+
+        </tbody>
+    </table>
+}

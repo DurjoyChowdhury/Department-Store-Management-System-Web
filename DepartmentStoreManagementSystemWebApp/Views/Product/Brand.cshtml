@@ -1,0 +1,112 @@
+﻿@using DepartmentStoreManagementSystemWebApp.Models
+@model DepartmentStoreManagementSystemWebApp.Models.Brand
+@{
+    ViewBag.Title = "Brand";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+   
+    <style>
+        .container .table
+        {
+margin-top: 4rem;
+
+        }
+         .container .table thead {
+            background: #7F82F9;
+            color: white;
+            text-align: center;
+        }
+
+        .container .table tbody {
+            text-align: center;
+        }
+    
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">Brand Add</h1>
+    <form method="post">
+        <div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                   
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Type</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.Type, new { @class = "form-control" })
+                </div>
+            </div>
+            <input type="submit" value="Save"  class="btn btn-primary btn-block"/>
+        </div>
+        <div>
+            @if (ViewBag.message != null)
+            {
+                <h2 class="text-center">@ViewBag.message</h2>
+            }
+        </div>
+        
+    </form>
+
+    <div>
+        <table class="table table-bordered">
+            <thead >
+            <tr >
+                <th class="text-center">Name</th>
+                <th class="text-center">Type</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (Brand item in ViewBag.list)
+           {
+           <tr >
+             <td>@item.Name</td>
+             <td>@item.Type</td>
+           </tr>
+               }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
