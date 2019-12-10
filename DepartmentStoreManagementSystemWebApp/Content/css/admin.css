@@ -1,0 +1,19 @@
+@import "bootstrap.min.css";
+@import "all.css";
+i{
+    color: #ff480b;
+}
+.col-md-3 button{
+    color:#ff480b;
+}
+.card-body ul>li>a {
+    color: black!important; ;
+}
+iframe{
+    border:none;
+    padding: 20px;
+    /*border-left: 3px solid #ff480b;*/
+    /*border-top: 3px solid #ff480b;*/
+    /*border: 3px solid #ff480b;*/
+
+}
