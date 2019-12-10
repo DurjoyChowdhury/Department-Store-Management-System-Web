@@ -1,0 +1,48 @@
+﻿@using DepartmentStoreManagementSystemWebApp.Models
+@model DepartmentStoreManagementSystemWebApp.Models.Customer
+@{
+    ViewBag.Title = "ViewCustomerByDate";
+    Layout = null;
+}
+
+<h2>View Customer By Date</h2>
+<form method="post">
+    @Html.Label("Date")
+    <input type="date" class="datepicker" id="date1" name="date1"/>
+    To
+    <input type="date" class="datepicker" id="date2" name="date2" />
+   <input type="submit" value="Find"/>
+</form>
+@if (ViewBag.list != null)
+{
+    <table border="2">
+        <thead>
+        <tr>
+            <td>CustomerId</td><td>Name</td><td>Address</td><td>Phone</td><td>Amount</td><td>SalesNo</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Customer customer in ViewBag.list)
+        {
+            <tr>
+                <td>@customer.CustomerId</td>
+                <td>@customer.Name</td>
+                <td>@customer.Address</td>
+                <td>@customer.Phone</td>
+                <td>@customer.Amount</td>
+                <td>@customer.SalesNo</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script>
+    $(function () {
+        $(".datepicker").datepicker(
+            { dateFormate: "yy-mm-dd" });
+    });
+</script>
