@@ -1,0 +1,39 @@
+﻿@using DepartmentStoreManagementSystemWebApp.Models
+@model DepartmentStoreManagementSystemWebApp.Models.LogIn
+@{
+    ViewBag.Title = "DeleteSalesman";
+    Layout = null;
+}
+<h2>DeleteSalesman</h2>
+<table border="2">
+        <thead>
+            <tr><td>Name</td>
+                <td>Present Address</td>
+                <td>Permanent Address</td>
+                <td>Email</td>
+                <td>NID</td>
+                <td>Phone</td>
+                <td>Password</td></tr>
+        </thead>
+        <tbody>
+            @foreach (LogIn item in ViewBag.List)
+            {<tr>
+        @using (Html.BeginForm("DeleteSalesman", "SalesPerson"))
+        {<td>@Html.DisplayFor(x => item.Name)</td>
+            <td>@Html.DisplayFor(x => item.PresentAddress)</td>
+            <td>@Html.DisplayFor(x => item.PermanentAddress)</td>
+            <td>@Html.DisplayFor(x => item.Email)</td>
+            <td>@Html.DisplayFor(x => item.NID)</td>
+            <td>@Html.DisplayFor(x => item.Phone)</td>
+            <td>@Html.DisplayFor(x => item.Password)</td>
+            <td><input type="submit" value="@item.Name" id="Name" name="Name"  /></td>
+             }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+
