@@ -1,0 +1,76 @@
+﻿@using DepartmentStoreManagementSystemWebApp.Models
+@model DepartmentStoreManagementSystemWebApp.Models.Refund
+@{
+    ViewBag.Title = "ViewRefundByDate";
+    Layout = null;
+}
+
+<h2>View Refund By Date</h2>
+
+<form method="post">
+    <div>
+        @Html.Label("Date")
+        @*@Html.EditorFor(x => x.Date, new { htmlAttributes = new { @class = "datepicker" } })*@
+        <input type="date" class="datepicker" id="Date1" name="Date1" />
+   
+        TO
+    
+        
+        @*@Html.EditorFor(x => x.Date, new { htmlAttributes = new { @class = "datepicker" } })*@
+        <input type="date" class="datepicker" id="Date2" name="Date2" />
+    </div>
+    <div>
+        <input type="submit" value="Search" />
+    </div>
+    
+   
+</form>
+@if (ViewBag.List != null)
+{
+    <table class="text-center" border="2">
+        <thead>
+        <tr>
+            <td>Code</td><td>Name</td><td>Brand</td><td>Weight</td><td>Quantity</td><td>Type</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach (Refund refund in ViewBag.List)
+        {
+            <tr>
+                <td>
+                    @refund.Code
+                </td>
+                <td>
+                    @refund.Name
+                </td>
+                <td>
+                    @refund.Brand
+                </td>
+                <td>
+                    @refund.Weight
+                </td>
+                <td>
+                    @refund.Quentity
+                </td>
+                <td>
+                    @refund.Type
+                </td>
+            </tr>
+        }
+
+
+        </tbody>
+
+    </table>
+}
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script>
+    $(function () {
+        $(".datepicker").datepicker(
+            { dateFormate: "yy-mm-dd" });
+    });
+</script>

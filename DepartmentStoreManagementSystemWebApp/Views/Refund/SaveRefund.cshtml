@@ -1,0 +1,142 @@
+﻿@using DepartmentStoreManagementSystemWebApp.Models
+@model DepartmentStoreManagementSystemWebApp.Models.AddProduct
+@{
+    ViewBag.Title = "SaveRefund";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        input.btn-block[type="submit"] {
+            width: 50%;
+            margin-left: 353px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-center">Save Refund</h1>
+<div class="container clearfix">
+    <form method="post">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Code</label>
+            <div class="col-sm-10">
+                   
+                @Html.TextBoxFor(x => x.Code, new { @class = "form-control", @id = "code", placeholder = "Code" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                    
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @id = "name", placeholder = "Name" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Weight</label>
+            <div class="col-sm-10">
+                   
+                @Html.TextBoxFor(x => x.Brand, new { @class = "form-control", @id = "brand", placeholder = "Brand" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Weight</label>
+            <div class="col-sm-10">
+                   
+                @Html.TextBoxFor(x => x.Weight, new { @id = "weight", @class = "form-control", placeholder = "Weight" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Quantity</label>
+            <div class="col-sm-10">
+
+                @Html.TextBoxFor(x => x.Quantity, new { @id = "quantity", @class = "form-control", placeholder = "Quantity" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Date</label>
+            <div class="col-sm-10">
+                @*<input type="date" class="form-control" id="inputEmail3" placeholder="Date">*@
+                @Html.EditorFor(x => x.Date, new { htmlAttributes = new { @class = "datepicker" } })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Type</label>
+            <div class="col-sm-10">
+                <select class="form-control form-control-md" id="myList" name="myList">
+                    <option>Select</option>
+                    @foreach (Refund item in ViewBag.listnew)
+                    {
+                        <option value="@item.Type">
+                            @item.Type
+                        </option>
+                    }
+                </select>
+                    
+
+            </div>
+        </div>
+       
+        <input type="submit" value="Save" class="btn btn-primary btn-block" />
+    </form>
+    @if (ViewBag.message != null)
+    {
+        <h3 class="text-center">@ViewBag.message</h3>
+    }
+</div>
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#code").change(function () {
+            var selectdepartmentId = $("#code").val();
+
+
+            var json = { num: selectdepartmentId };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetData", "Refund")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(json),
+                success: function (data) {
+                    $.each(data, function (key, value) {
+
+                        $("#name").val(value.Name);
+                        $("#brand").val(value.Brand);
+                        $("#weight").val(value.Weight);
+
+
+                    });
+                }
+            });
+        });
+    });
+    $(function () {
+        $(".datepicker").datepicker(
+            { dateFormate: "yy-mm-dd" });
+    });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
