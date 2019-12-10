@@ -1,0 +1,67 @@
+﻿@using DepartmentStoreManagementSystemWebApp.Models
+
+@{
+    ViewBag.Title = "Print";
+    Layout = null;
+    
+}
+<h4>Super Shop Store Management System </h4>
+<h4>Bill</h4>
+<div>
+    @Html.Label("Customer Name")<h5>@ViewBag.name</h5>
+
+    
+</div>
+<div>
+    @Html.Label("Phone")<h5>@ViewBag.phone</h5>
+    
+</div>
+<div>
+    <table>
+        
+        <thead>
+        <tr>
+            <td>No</td>
+            <td>Product</td>
+            <td>Price</td>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        @foreach (SaleProduct sale in ViewBag.list)
+        {
+
+            int m = 0;
+            var i = m + 1;
+
+            <tr>
+
+                <td>@i</td>
+                <td>@sale.ProductName</td>
+                <td>@sale.ProductPrice</td>
+            </tr>
+
+        } 
+        <tr>
+            <td></td>
+            <td>Total</td>
+            <td>@ViewBag.total</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Give</td>
+            <td>@ViewBag.give</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Return</td>
+            <td>@ViewBag.ret</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<h4> Thanks for coming</h4>
+
+
+

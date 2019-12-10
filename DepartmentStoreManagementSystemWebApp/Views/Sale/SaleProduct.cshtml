@@ -1,0 +1,233 @@
+﻿@using DepartmentStoreManagementSystemWebApp.Models
+@model DepartmentStoreManagementSystemWebApp.Models.SaleProduct
+@{
+    ViewBag.Title = "SaleProduct";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        label {
+            font-weight: bold;
+            font-family: Arial;
+        }
+
+        .container .table thead {
+            background: #f99c0f;
+            color: white;
+            text-align: center;
+        }
+
+        .container .table tbody {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+<div class="container">
+    <form method="post">
+        <h1 class="text-center">Sell Details</h1>
+
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Sales No</label>
+            <div class="col-sm-10">
+
+                @Html.TextBoxFor(x => x.SalesNo, new { @id = "salesNo", Value = ViewBag.saleno, @class = "form-control", placeholder = "Sales No" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Product Code</label>
+            <div class="col-sm-10">
+
+                @Html.TextBoxFor(x => x.ProductCode, new { @id = "productCode", @class = "form-control", placeholder = "Product Code" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Quantity</label>
+            <div class="col-sm-10">
+
+                @Html.TextBoxFor(x => x.Quantity, new { @id = "quantity", @class = "form-control", placeholder = "Quantity" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Product Name</label>
+            <div class="col-sm-10">
+
+                @Html.TextBoxFor(x => x.ProductName, new { @id = "productName", @class = "form-control", placeholder = " Product name" })
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Product Weight</label>
+            <div class="col-sm-10">
+
+                @Html.TextBoxFor(x => x.ProductWeight, new { @id = "productWeight", @class = "form-control", placeholder = "Product Weight" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Vat</label>
+            <div class="col-sm-10">
+
+                @Html.TextBoxFor(x => x.Vat, new { @id = "vat", @class = "form-control", placeholder = "Vat" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Discount</label>
+            <div class="col-sm-10">
+               
+                @Html.TextBoxFor(x => x.Discount, new { @id = "discount", @class = "form-control", placeholder = "Discount" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Product Price</label>
+            <div class="col-sm-10">
+              
+                @Html.TextBoxFor(x => x.ProductPrice, new { @id = "productPrice", @class = "form-control", placeholder = "Product Price" })
+            </div>
+        </div>
+
+        <input type="submit" value="Add" class="btn btn-primary btn-block" />
+    </form>
+@if (ViewBag.message != null)
+{
+    <h2 class="text-center">@ViewBag.message</h2>
+}
+
+    <div class="mt-5">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Sales No</th>
+                    <th scope="col">Product Code</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Product Price</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Vat</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Weight</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+            @if (ViewBag.list != null)
+            {
+                foreach (SaleProduct sale in ViewBag.list)
+                {
+                    <tr>
+                        <td>@sale.SalesNo</td>
+                        <td>@sale.ProductCode</td>
+                        <td>@sale.Quantity</td>
+                        <td>@sale.ProductPrice</td>
+                        <td>@sale.Discount</td>
+                        <td>@sale.Vat</td>
+                        <td>@sale.ProductName</td>
+                        <td>@sale.ProductWeight</td>
+                    </tr>
+                }
+            }
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <input type="submit" value="Total" id="totalprice" class="btn btn-primary btn-block" />
+
+    <div class="form-group row mt-5">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Total</label>
+        <div class="col-sm-10">
+           
+            <input type="text" id="totalpricel" class="form-control" />
+        </div>
+    </div>
+</div>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#quantity").change(function () {
+
+            var selectdepartmentId = $("#quantity").val();
+            var selectedprice = $("#productCode").val();
+
+
+
+            var json = { num: selectdepartmentId, num2: selectedprice };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetData", "Sale")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(json),
+                success: function (data) {
+                    $.each(data, function (key, value) {
+
+                        $("#discount").val(value.Discount);
+                        $("#vat").val(value.Vat);
+                        $("#productName").val(value.ProductName);
+                        $("#productWeight").val(value.ProductWeight);
+                        $("#productPrice").val(value.ProductPrice);
+                    });
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#totalprice").click(function () {
+            var selectedprice = $("#salesNo").val();
+            var json = { num: selectedprice };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetTotal", "Sale")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(json),
+                success: function (data) {
+                    $.each(data, function (key, value) {
+
+
+                        $("#totalpricel").val(value.ProductPrice);
+                    });
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

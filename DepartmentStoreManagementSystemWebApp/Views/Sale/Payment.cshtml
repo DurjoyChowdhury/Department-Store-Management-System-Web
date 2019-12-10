@@ -1,0 +1,83 @@
+﻿@using DepartmentStoreManagementSystemWebApp.Models
+@model DepartmentStoreManagementSystemWebApp.Models.Payment
+@{
+    ViewBag.Title = "Payment";
+    Layout = null;
+}
+
+<h2>Payment</h2>
+<form method="post">
+    <div>
+        @Html.Label("Customer Name")
+        @Html.TextBoxFor(x => x.CustomerName, new { @id = "customerName", Value = ViewBag.name })
+    </div>
+    <div>
+        @Html.Label("Phone")
+        @Html.TextBoxFor(x => x.Phone, new { @id = "phone", Value = ViewBag.phone })
+    </div>
+
+
+    <table>
+        <tr>
+            <td> No</td>
+            <td> Product</td>
+            <td> Taka</td>
+        </tr>
+        @foreach (SaleProduct sale in ViewBag.list)
+        {
+            int m = 0;
+            m++;
+            <tr>
+                <td>@m</td>
+                <td>@sale.ProductName</td>
+                <td>@sale.ProductPrice</td>
+            </tr>
+
+        }
+    </table>
+    <div>
+        @Html.Label("Total")
+        @Html.TextBoxFor(x => x.Total, new { @id = "total", Value = ViewBag.amount })
+    </div>
+    <div>
+        @Html.Label("Give")
+        @Html.TextBoxFor(x => x.Give, new { @id = "give" })
+    </div>
+    <div>
+        @Html.Label("Return")
+        @Html.TextBoxFor(x => x.Return, new { @id = "return" })
+    </div>
+    <input type="submit" value="Ok"/>
+</form>
+@if (ViewBag.message != null)
+{
+    <a class="nav-link" href="@Url.Action("Print", "Sale")">Print</a>
+}
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#give").change(function () {
+            var selectdepartmentId = $("#give").val();
+
+
+            var json = { code: selectdepartmentId };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetReturn", "Sale")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(json),
+                success: function (data) {
+               
+                    $("#return").val(data);
+                       
+                   
+                }
+            });
+        });
+    });
+
+</script>
