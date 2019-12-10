@@ -1,0 +1,225 @@
+﻿@using System.Web.UI.WebControls
+@using DepartmentStoreManagementSystemWebApp.Models
+
+@{
+    ViewBag.Title = "AdminHome";
+    Layout = null;
+     if (Session["user"] == null)
+     {
+         Response.Redirect("~/LogIn/Index");
+     }
+}
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+   
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <title>Hello, world!</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+
+    <a class="navbar-brand" href="#">
+        <ul class="list-inline">
+
+            <li class="list-inline-item"><img src="~/Content/img/logo.png" width="100px" height="50px"> </li>
+            <li class="list-inline-item ">
+                <h1><span style="color:#ff480b">S</span>uper <span style="color: #ff480b">S</span>hop <span style="color:#ff480b">S</span>tore <span style="color:#ff480b">M</span>anagement <span style="color:#ff480b">S</span>ystem</h1></li>
+        </ul>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-bell fa-1x"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user fa-1x"></i>
+                        <form method="post" style="display: inline">
+                            @{
+                                var user = Session["user"] as LogIn;
+                            }
+                            @if (user != null)
+                            {
+                                    @user.Name
+                            }
+                        </form>
+                       
+
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("LogOut", "LogIn")">
+                        Log Out
+                    </a>
+                </li>
+            
+        </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Employee
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="@Url.Action("SaveSalesPerson","SalesPerson")" target="myframe">Save Sales Person</a></li>
+                                <li class="list-group-item"><a href="@Url.Action("UpdateSalesPerson","SalesPerson")" target="myframe">Update Sales Person</a></li>
+                                <li class="list-group-item"><a href="@Url.Action("DeleteSalesman","SalesPerson")" target="myframe">Delete Sales Person</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Party
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="@Url.Action("Supplier","Product")" target="myframe">Supplier</a></li>
+                                <li class="list-group-item"><a href="@Url.Action("Brand","Product")" target="myframe">Brand Save</a></li>
+                               
+                               
+                                <li class="list-group-item"><a href="@Url.Action("ProductByBrand", "Product")" target="myframe">View Product Brand</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Product
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="@Url.Action("AddProduct","Product")" target="myframe">Add Product</a></li>
+                                <li class="list-group-item"><a href="@Url.Action("UpdateProduct","Product")" target="myframe">Update Product</a></li>
+                                <li class="list-group-item"><a href="@Url.Action("DeleteProduct","Product")" target="myframe">Delete Product</a></li>
+                                <li class="list-group-item"><a href="@Url.Action("StockIn","Product")" target="myframe">Stock In</a></li>
+
+                               
+                                <li class="list-group-item"><a href="@Url.Action("SaveRefund","Refund")" target="myframe">Refund Product</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                                Sell
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="@Url.Action("SaveCustomer","Customer")" target="myframe">Customer</a></li>
+                                <li class="list-group-item"><a href="@Url.Action("SaleProduct","Sale")" target="myframe">Sale</a></li>
+                                <li class="list-group-item"><a href="@Url.Action("Payment","Sale")" target="myframe">Payment Process</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                                View Report
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseFive" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="@Url.Action("ViewRefundByDate", "Refund")" target="myframe">View Refund</a></li>
+                                <li class="list-group-item"><a href="@Url.Action("ViewCustomerByDate", "Customer")" target="myframe">View Customer</a></li>
+                                
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-9">
+            
+            <iframe height="550px" width="100%" name="myframe"></iframe>
+
+        </div>
+    </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
